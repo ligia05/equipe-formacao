@@ -1,0 +1,22 @@
+.cabecalho {
+  font-family: "Truculenta", sans-serif;
+  font-size: 3rem;
+  color: rgb(0, 191, 255);
+  padding-left: 30rem;
+  background-color: antiquewhite;
+  display: block;
+  margin-bottom: 100px;
+  width: 100%;
+}
+
+.formulario {
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  max-width: 50%;
+  height: 10rem;
+  padding: 1rem;
+  background-color: antiquewhite;
+  margin-left: 20rem;
+  border-radius: 5px;
+}
