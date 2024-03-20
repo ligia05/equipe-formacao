@@ -6,13 +6,23 @@ function App() {
   const [email, setEmail] = useState("");
   const [imagem, setImagem] = useState("");
   const [area, setArea] = useState("");
+  const [equipe, setEquipe] = useState([]);
+  function submitFormulario(evento) {
+    evento.preventDefault();
+    setEquipe((inicial) => {
+      const valores = { nomeCompleto, email, imagem, area };
+      return [...inicial, valores];
+    });
+    console.log(equipe);
+  }
+
   return (
     <div>
       <header>
         <p className="cabecalho"> Bem-Vindo a formação de equipe</p>
       </header>
       <div className="formulario">
-        <form action="">
+        <form action="" onSubmit={submitFormulario}>
           <label htmlFor="nomeCompleto">Nome Completo</label>
           <input
             type="text"
@@ -51,6 +61,16 @@ function App() {
           <button type="submit">Enviar</button>
         </form>
       </div>
+      <section>
+        {equipe.map((pessoa) => (
+          <article key={pessoa.email}>
+            <img src={pessoa.imagem} alt="" />
+            <h2>{pessoa.nomeCompleto} </h2>
+            <p>{pessoa.email}</p>
+            <p>{pessoa.area}</p>
+          </article>
+        ))}
+      </section>
     </div>
   );
 }
