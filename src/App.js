@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
+import Input from "./componentes/Input";
 
 function App() {
   const [nomeCompleto, setNomeCompleto] = useState("");
@@ -7,6 +8,27 @@ function App() {
   const [imagem, setImagem] = useState("");
   const [area, setArea] = useState("");
   const [equipe, setEquipe] = useState([]);
+  const propLocalSorage = "equipeLocalStorage";
+  function botaoDeletar(email) {
+    const equipeFilter = equipe.filter((pessoa) => pessoa.email !== email);
+    setEquipe(equipeFilter);
+  }
+
+  useEffect(() => {
+    const temEquipe = localStorage.getItem(propLocalSorage);
+    if (!temEquipe) {
+      return;
+    }
+    const equipeObjeto = JSON.parse(temEquipe);
+    setEquipe(equipeObjeto);
+  }, []);
+  useEffect(() => {
+    if (equipe.length === 0) {
+      return;
+    }
+    const equipeString = JSON.stringify(equipe);
+    localStorage.setItem(propLocalSorage, equipeString);
+  }, [equipe]);
   function submitFormulario(evento) {
     evento.preventDefault();
     setEquipe((inicial) => {
@@ -23,29 +45,27 @@ function App() {
       </header>
       <div className="formulario">
         <form action="" onSubmit={submitFormulario}>
-          <label htmlFor="nomeCompleto">Nome Completo</label>
-          <input
-            type="text"
-            value={nomeCompleto}
-            onChange={(evento) => setNomeCompleto(evento.target.value)}
-            id="nomeCompleto"
-          />
-          <br />
-          <label htmlFor="email">E-mail</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(evento) => setEmail(evento.target.value)}
-            id="email"
-          />
-          <br />
-          <label htmlFor="imagem">Imagem</label>
-          <input
-            type="text"
-            value={imagem}
-            onChange={(evento) => setImagem(evento.target.value)}
-            id="imagem"
-          />
+          <Input
+            nome="Nome"
+            typeInput="text"
+            labelInput="nome"
+            valor={nomeCompleto}
+            mudaValor={setNomeCompleto}
+          ></Input>
+          <Input
+            nome="Email"
+            typeInput="email"
+            valor={email}
+            mudaValor={setEmail}
+            labelInput="email"
+          ></Input>
+          <Input
+            nome="Imagem"
+            typeInput="text"
+            valor={imagem}
+            mudaValor={setImagem}
+          ></Input>
+
           <br />
           <label htmlFor="area">Area de Atuação</label>
           <select
@@ -63,11 +83,14 @@ function App() {
       </div>
       <section>
         {equipe.map((pessoa) => (
-          <article key={pessoa.email}>
-            <img src={pessoa.imagem} alt="" />
+          <article className="principal" key={pessoa.email}>
+            <img className="imagem" src={pessoa.imagem} alt="" />
             <h2>{pessoa.nomeCompleto} </h2>
             <p>{pessoa.email}</p>
             <p>{pessoa.area}</p>
+            <button onClick={() => botaoDeletar(pessoa.email)} type="button">
+              Apagar
+            </button>
           </article>
         ))}
       </section>
