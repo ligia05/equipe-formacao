@@ -2,11 +2,14 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
+import { EquipeProvider } from "./context/EquipeContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <EquipeProvider>
+      <App />
+    </EquipeProvider>
   </React.StrictMode>
 );
 

@@ -22,7 +22,21 @@
 }
 
 .imagem {
-  height: 120px;
+  height: 100px;
+  width: 100px;
+  border: 5px black solid;
+  padding: 10%;
+}
+
+.principal {
+  display: flex;
   width: 120px;
-  border: 10px black solid;
+  height: 120px;
+  padding: 30px;
+}
+.botaoDeletar {
+  height: 20px;
+}
+.nomeEmail {
+  font-size: 1.5rem;
 }
